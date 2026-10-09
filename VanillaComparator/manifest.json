@@ -1,0 +1,20 @@
+{
+  "name": "VanillaComparator",
+  "version": "0.0",
+  "description": "Extension to compare products.",
+  "manifest_version": 3,
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_title": "VanillaComparator",
+    "default_popup": "./popup/index.html"
+  },
+
+  "permissions": ["scripting", "tabs", "activeTab", "storage"],
+  "host_permissions": ["<all_urls>"],
+  "content_security_policy": {
+    "extension_pages": "default-src 'self'"
+  }
+}

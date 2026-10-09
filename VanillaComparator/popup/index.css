@@ -1,0 +1,28 @@
+body,
+html {
+    margin: 0;
+    padding: 0;
+
+    min-width: 1200px;
+
+    font-size: 1rem;
+}
+
+.comparator {
+    min-width: 100%;
+    display: flex;
+    gap: 2rem;
+
+    padding: 0.5rem 1rem;
+
+}
+
+.comparator .title {
+    text-transform: uppercase;
+}
+
+.row {
+    display: flex;
+    text-transform: capitalize;
+    gap: 1rem;
+}
