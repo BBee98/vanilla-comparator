@@ -1,5 +1,8 @@
 function fetchToTable(table) {
-  const data = []
+  const data = [];
+  if (!table || table.length === 0) {
+    return data;
+  }
   const rows = table?.querySelectorAll("tr");
   rows.forEach((row) => {
     const titleCell = row.querySelector("th").innerHTML;
@@ -10,6 +13,19 @@ function fetchToTable(table) {
     })
   })
   return data;
+}
+
+function fetchPrice() {
+  const priceWhole = document.querySelector(".a-price-whole");
+  const priceDecimal = document.querySelector(".a-price-decimal");
+  const priceFraction = document.querySelector(".a-price-fraction");
+  const priceSymbol = document.querySelector(".a-price-symbol");
+  return {
+    priceWhole,
+    priceDecimal,
+    priceFraction,
+    priceSymbol
+  }
 }
 
 function getChildrenFromTable(element) {
@@ -41,5 +57,10 @@ function getChildrenFromSections(rightSection, leftSection) {
 
   const { contentTable, dimensionsTable, informationProductTable, specificationsTable } = getChildrenFromSections(rightSection, leftSection)
 
-  return [contentTable, dimensionsTable, informationProductTable, specificationsTable].map(tables => fetchToTable(getChildrenFromTable(tables)))[0]
+  const price = fetchPrice();
+
+  return {
+    productInfo: [contentTable, dimensionsTable, informationProductTable, specificationsTable].map(tables => fetchToTable(getChildrenFromTable(tables)))[0],
+    price
+  }
 })()

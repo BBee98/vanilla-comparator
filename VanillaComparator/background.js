@@ -35,12 +35,13 @@ async function fetchTabs() {
           target: { tabId: tab.id },
           files: ["script-amazon.js"],
         });
-        if(!result[0]?.result){
+        if (!result[0]?.productInfo) {
           return null;
         }
         return {
           domain: includedUrls[index],
           result: result[0].result,
+          price: result[0].price,
           status: tab.status
         }
       } catch (error) {
@@ -53,7 +54,6 @@ async function fetchTabs() {
   return resolved.filter(Boolean);
 }
 
-
-function tabIsLoaingOrComplete(status){
+function tabIsLoaingOrComplete(status) {
   return status === 'complete' || status === 'loading'
 }

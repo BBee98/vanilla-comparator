@@ -14,9 +14,10 @@ import { printData } from "./scripts/print-data.js";
       const domain = tb.domain;
       const data = tb.result;
       const status = tb.status;
+      const price = tb.price;
 
       if (domain.includes("amazon")) {
-        storageAmazonData({ domain, data, status });
+        storageAmazonData({ domain, data, status, price });
       }
     })
     printData()
@@ -28,9 +29,9 @@ import { printData } from "./scripts/print-data.js";
 
 
 })()
-function storageAmazonData({ domain, data, status }) {
+function storageAmazonData({ domain, data, status, price }) {
 
-  const amazonData = amazonObjectBuilder({ data, status });
+  const amazonData = amazonObjectBuilder({ data, status, price });
 
   if (amazonData.length === 0) {
     return;

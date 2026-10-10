@@ -1,20 +1,14 @@
-import { DomainTemplate } from './template.js';
-
 export function storeDataIntoLocalStorage({ domain, domainData, status }) {
 
     const arrayData = JSON.parse(localStorage.getItem("data"));
 
-    const fields = getFields(Object.values(DomainTemplate[domain]), domainData)
-
-    const neededData = (Object.keys(fields).length) > 0
-
     const itemJSONData = {
-        ...fields,
+        data: domainData,
         domain,
         status
     }
 
-    const isFirstTime = !arrayData && neededData
+    const isFirstTime = !arrayData || arrayData?.length === 0;
     if (isFirstTime) {
         localStorage.setItem("data", JSON.stringify([itemJSONData]))
         return;
@@ -27,15 +21,4 @@ export function storeDataIntoLocalStorage({ domain, domainData, status }) {
         localStorage.setItem("data", JSON.stringify(arrayData))
     }
 
-}
-
-function getFields(fields, data) {
-    const itemFields = {}
-    fields.forEach(field => {
-        const content = data.find(item => item.fieldName.includes(field))?.content;
-        if (content) {
-            itemFields[field] = content;
-        }
-    });
-    return itemFields;
 }

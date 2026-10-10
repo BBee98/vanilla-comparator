@@ -1,28 +1,47 @@
 body,
 html {
+    min-width: 100vh;
     margin: 0;
     padding: 0;
-
-    min-width: 1200px;
-
     font-size: 1rem;
+}
+
+span {
+    display: inline-block
+}
+
+.extensionTitle {
+    padding: 0.5rem;
 }
 
 .comparator {
     min-width: 100%;
     display: flex;
-    gap: 2rem;
-
-    padding: 0.5rem 1rem;
-
+    flex-direction: column;
 }
 
-.comparator .title {
-    text-transform: uppercase;
+.fieldKey {
+    background: rgb(224, 224, 220);
+}
+
+.comparator div {
+    width: 100%;
+    border-right: 1px solid darkgray;
+}
+
+.comparator>.title {
+    display: flex;
+}
+
+.content {
+    /* min-width: 250px;*/
+}
+
+.text {
+    padding: 0.5rem;
 }
 
 .row {
     display: flex;
-    text-transform: capitalize;
     gap: 1rem;
 }

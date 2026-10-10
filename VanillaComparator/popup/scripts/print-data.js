@@ -7,13 +7,55 @@ export function printData() {
         return false;
     }
 
-
     createTable(JSONData);
 }
 
-function createTable(data) {
+function createTable(JSONData) {
     const comparatorDiv = document.querySelector("#comparator");
     comparatorDiv.classList.add("table");
+
+    const fields = Object.keys(HTMLTemplate);
+    fields.forEach(fieldKey => {
+        const row = createRow(fieldKey);
+        const { cell: rowHeader } = createCell({ text: HTMLTemplate[fieldKey] });
+        rowHeader.classList.add("fieldKey")
+        row.appendChild(rowHeader);
+        comparatorDiv.appendChild(row);
+        addCellsToRow(row, { JSONData, fieldKey })
+    })
+}
+
+function createRow(fieldKey) {
+    const row = document.createElement("div");
+    row.id = fieldKey;
+    row.classList.add("title");
+    return row;
+}
+
+function addCellsToRow(parentElement, { JSONData, fieldKey }) {
+    JSONData.forEach(({ data }) => {
+        data.forEach(({ fieldName, content }) => {
+            if (fieldName.includes(fieldKey)) {
+                const { cell } = createCell({ text: content });
+                parentElement.appendChild(cell);
+            }
+        })
+    })
+
+}
+
+function createCell({ text }) {
+    const cell = document.createElement("div");
+    const cellText = document.createElement("span");
+    cellText.classList.add("text");
+    cellText.innerHTML = text;
+    cell.classList.add("content")
+    cell.appendChild(cellText);
+    return { cell, cellText }
+}
+
+
+/*
 
     const sortedList = data.sort((a, b) => {
         if (a.brand < b.brand) {
@@ -22,34 +64,4 @@ function createTable(data) {
         return -1
     });
 
-    const fields = Object.keys(HTMLTemplate);
-    fields.forEach(field => {
-        const column = document.createElement("div");
-        addColumnHeader(column, field)
-        comparatorDiv.appendChild(column)
-
-        sortedList.forEach(item => {
-            let content = "";
-            if (!(content.includes(item[field]))) {
-                content = item[field];
-                const rowContent = document.createElement("p");
-                rowContent.innerText = content;
-                column.appendChild(rowContent);
-            }
-        })
-
-    });
-
-
-}
-
-
-
-function addColumnHeader(column, field) {
-    const text = document.createElement("span");
-    text.innerText = HTMLTemplate[field];
-    column.id = field;
-    column.appendChild(text);
-}
-
-
+    */
