@@ -36,7 +36,7 @@ function addCellsToRow(parentElement, { JSONData, fieldKey }) {
     JSONData.forEach(({ data }) => {
         data.forEach(({ fieldName, content }) => {
             if (fieldName.includes(fieldKey)) {
-                const { cell } = createCell({ text: content });
+                const { cell } = fieldName.includes("price") ? formatPrice(content) : createCell({ text: content });
                 parentElement.appendChild(cell);
             }
         })
@@ -51,9 +51,42 @@ function createCell({ text }) {
     cellText.innerHTML = text;
     cell.classList.add("content")
     cell.appendChild(cellText);
-    return { cell, cellText }
+    return { cell }
 }
 
+function formatPrice({ priceWhole, priceDecimal, priceFraction, priceSymbol }) {
+
+    const cell = document.createElement("div");
+    cell.classList.add("content")
+
+    const priceWholeElement = createElement(priceWhole.replace(/[^\p{L}\p{N}]/gu, ""), "priceWhole");
+    const priceDecimalElement = createElement(priceDecimal, "priceDecimal");
+    const priceFractionElement =createElement(priceFraction, "priceFraction");
+    const priceSymbolElement =createElement(priceSymbol, "priceSymbol")
+
+    cell.appendChild(priceWholeElement);
+    cell.appendChild(priceDecimalElement);
+    cell.appendChild(priceFractionElement);
+    cell.appendChild(priceSymbolElement);
+
+    return { cell }
+
+    function createElement(priceData, className) {
+        console.log("priceData", priceData)
+
+
+        if (!priceData) {
+            return null;
+        }
+        const priceElement = document.createElement("span");
+        priceElement.classList.add(className);
+        priceElement.innerHTML = priceData;
+
+        console.log("priceElement", priceElement)
+
+        return priceElement;
+    }
+}
 
 /*
 

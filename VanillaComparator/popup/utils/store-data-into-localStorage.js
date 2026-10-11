@@ -1,11 +1,12 @@
-export function storeDataIntoLocalStorage({ domain, domainData, status }) {
+export function storeDataIntoLocalStorage({ domain, domainData, status, price }) {
 
     const arrayData = JSON.parse(localStorage.getItem("data"));
 
     const itemJSONData = {
         data: domainData,
         domain,
-        status
+        status,
+        price
     }
 
     const isFirstTime = !arrayData || arrayData?.length === 0;

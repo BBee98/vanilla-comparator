@@ -17,14 +17,14 @@ function fetchToTable(table) {
 
 function fetchPrice() {
   const priceWhole = document.querySelector(".a-price-whole");
-  const priceDecimal = document.querySelector(".a-price-decimal");
+  const priceDecimal = priceWhole.querySelector(".a-price-decimal");
   const priceFraction = document.querySelector(".a-price-fraction");
   const priceSymbol = document.querySelector(".a-price-symbol");
   return {
-    priceWhole,
-    priceDecimal,
-    priceFraction,
-    priceSymbol
+    priceWhole: priceWhole.innerText,
+    priceDecimal: priceDecimal.innerText,
+    priceFraction: priceFraction.innerText,
+    priceSymbol: priceSymbol.innerText
   }
 }
 

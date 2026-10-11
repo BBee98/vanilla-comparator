@@ -8,7 +8,7 @@ chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
 })
 
 chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
-  if (tabIsLoaingOrComplete(changeInfo)) {
+  if (tabIsLoaingOrComplete(changeInfo.status)) {
     const index = includedUrls.findIndex(url => tab.url.includes(url));
     if (index !== -1) {
       await postMessageToClient();
@@ -19,7 +19,6 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
 async function postMessageToClient() {
   const result = await fetchTabs();
   const allClients = await self.clients.matchAll();
-  console.log("allClients", allClients)
   for (const client of allClients) {
     client?.postMessage(result);
   }
@@ -35,13 +34,16 @@ async function fetchTabs() {
           target: { tabId: tab.id },
           files: ["script-amazon.js"],
         });
-        if (!result[0]?.productInfo) {
+
+        const _result = (Array.isArray(result) ? result[0] : result)?.result;
+
+        if (!_result.productInfo) {
           return null;
         }
         return {
           domain: includedUrls[index],
-          result: result[0].result,
-          price: result[0].price,
+          result: _result?.productInfo,
+          price: _result.price,
           status: tab.status
         }
       } catch (error) {

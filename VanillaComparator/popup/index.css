@@ -26,15 +26,12 @@ span {
 
 .comparator div {
     width: 100%;
+    min-width: 100px;
     border-right: 1px solid darkgray;
 }
 
 .comparator>.title {
     display: flex;
-}
-
-.content {
-    /* min-width: 250px;*/
 }
 
 .text {

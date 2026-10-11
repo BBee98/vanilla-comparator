@@ -5,7 +5,6 @@ export const DomainTemplate = {
         ["marca"]: "brand",
         ["nombre modelo"]: "modelName",
         ["número de modelo"]: "modelNumber",
-        ["precio"]: "price",
         ["dimensiones del producto"]: "productDimensions",
         ["color"]: "color"
     }

@@ -13,7 +13,7 @@ import { DomainTemplate } from './template.js';
 /*
 */
 
-export function amazonObjectBuilder({data, status, price}) {
+export function amazonObjectBuilder({data, status}) {
     return data.map((item) => {
         const fieldName = item.fieldName;
         const contentData = item.content.trim();
@@ -25,9 +25,11 @@ export function amazonObjectBuilder({data, status, price}) {
         if (!titleKey || !contentText) {
             return null;
         }
+
         return {
             fieldName: DomainTemplate["amazon"][titleKey],
             content: contentText.trim(),
+            status
         }
     }).filter(Boolean)
 }
